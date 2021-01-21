@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project Code-FRC2020 Infinite Recharge)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Code-FRC2020 Infinite Recharge",
+    "language": "java"
+  }
+]

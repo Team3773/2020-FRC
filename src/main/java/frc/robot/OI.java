@@ -21,9 +21,7 @@ public class OI {
   // You create one by telling it which joystick it's on and which button
   // number it is.
   public Joystick stick = new Joystick(RobotMap.joystickPort);
-
   public XboxController xbox = new XboxController(RobotMap.xboxPort);
-  
 
   // Button button = new JoystickButton(stick, buttonNumber);
 

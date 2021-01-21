@@ -6,47 +6,59 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.command.Subsystem;
 //import frc.robot.Robot;
+//import edu.wpi.first.wpilibj.PWMSpeedController;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveManuallyCommand;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class DriveSubsystem extends Subsystem {
-  WPI_TalonSRX leftMaster = null;
-  WPI_TalonSRX leftSlave = null;
-  WPI_TalonSRX rightMaster = null;
-  WPI_TalonSRX rightSlave = null;
-  DifferentialDrive drive = null;
-  //WPI_TalonSRX thing = null;
+   PWMTalonSRX leftMaster = null;
+   PWMTalonSRX leftSlave = null;
+   PWMTalonSRX rightMaster = null;
+   PWMTalonSRX rightSlave = null;
+   DifferentialDrive drive = null;
+   Encoder e = null;
+   
+  // PWMTalonSRX thing = null;
 
   public DriveSubsystem () {
-    WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.leftMasterPort);
-    WPI_TalonSRX leftSlave = new WPI_TalonSRX(RobotMap.leftSlavePort);
-    SpeedControllerGroup leftSide = new SpeedControllerGroup(leftMaster, leftSlave);
-  
-    WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightMasterPort);
-    WPI_TalonSRX rightSlave = new WPI_TalonSRX(RobotMap.rightSlavePort);
-    SpeedControllerGroup rightSide = new SpeedControllerGroup(rightMaster, rightSlave);
 
-    // thing = new WPI_TalonSRX(RobotMap.tiltmotorPort);
+     PWMTalonSRX leftMaster = new  PWMTalonSRX(RobotMap.leftMasterPort);
+     PWMTalonSRX leftSlave = new  PWMTalonSRX(RobotMap.leftSlavePort);
+      SpeedControllerGroup leftSide = new SpeedControllerGroup(leftMaster, leftSlave);
   
-    drive = new DifferentialDrive(leftSide, rightSide);
-    drive.setSafetyEnabled(false);    
+      PWMTalonSRX rightMaster = new  PWMTalonSRX(RobotMap.rightMasterPort);
+      PWMTalonSRX rightSlave = new  PWMTalonSRX(RobotMap.rightSlavePort);
+      SpeedControllerGroup rightSide = new SpeedControllerGroup(rightMaster, rightSlave);
+      
+
+    
+      drive = new DifferentialDrive(leftSide, rightSide);
+      drive.setSafetyEnabled(false);   
+      //encoder init
+      e = new Encoder(0, 1);
+      e.setDistancePerPulse(1.0/256.0);
+
   }
 
   public void driveManually(double move, double turn) {
     //leftSlave.follow(leftMaster);
    // rightSlave.follow(rightMaster);
     drive.arcadeDrive(move, turn);
+  
   }
-
-  // public void movearm(double val){
-  //   thing.set(val);
-  // }
- 
+  public double getDistance(){
+    return e.getDistance();
+  }
+  public void resetDistance(){
+    e.reset();
+  }
+  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

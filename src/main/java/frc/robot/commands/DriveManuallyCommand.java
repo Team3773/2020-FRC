@@ -7,31 +7,54 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-//import frc.robot.subsystems.DriveSubsystem;
-//import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Encoder;
+// import frc.robot.subsystems.DriveSubsystem;
+// import edu.wpi.first.wpilibj.DigitalInput;
+// import java.io.ObjectInputStream.GetField;
+
 
 public class DriveManuallyCommand extends Command {
+  boolean driveReverse = false;
+  Encoder e = null;
   public DriveManuallyCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveSubsystem);
+    requires(Robot.driveSubsystem); 
   }
+  
+private static double speedScaler = 0.75;
 
-  // Called just before this Command runs the first time
+
   @Override
   protected void initialize() {
-   // Robot.driveSubsystem.DriveSubsystem();
+
+    driveReverse = false;
+
+  
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //double xboxval = Robot.oi.xbox.getY(Hand.kLeft);
-   // Robot.driveSubsystem.movearm(xboxval);
+ 
+    if (Robot.oi.stick.getRawButtonPressed(1)) {
+    driveReverse = !driveReverse;
 
+    }
     double move = -Robot.oi.stick.getY();
+    move = move*speedScaler;
     double turn = Robot.oi.stick.getX();
-    Robot.driveSubsystem.driveManually(move, turn);
+    turn = turn*speedScaler;
+    if (driveReverse) {
+      Robot.driveSubsystem.driveManually(-move, -turn);
+
+    
+
+    }else{
+
+      Robot.driveSubsystem.driveManually(move, turn);
+    }
   }
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

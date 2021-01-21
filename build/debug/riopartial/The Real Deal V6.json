@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project The Real Deal V6)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "The Real Deal V6",
+    "language": "java"
+  }
+]

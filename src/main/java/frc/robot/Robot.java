@@ -12,15 +12,27 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.driveAuto;
+// import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.subsystems.*;
+import edu.wpi.first.cameraserver.CameraServer;
+// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+// import java.sql.Time;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.pnusub;
+// import edu.wpi.first.wpilibj.PWM;
+// import frc.robot.commands.DriveManuallyCommand;
+
+
+//import frc.robot.commands.ballDoorCommand;
+//import frc.robot.subsystems.ballDoorSubsystem;
+//import frc.robot.RobotMap;
 //import edu.wpi.cscore.VideoSource;
 //import edu.wpi.cscore.UsbCamera;
-
-
 //import edu.wpi.first.wpilibj.cameraServer.CameraServer;
-import edu.wpi.first.cameraserver.CameraServer;
+//import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj
+//import frc.robot.commands.DriveManuallyCommand;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -30,8 +42,15 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class Robot extends TimedRobot {
   public static DriveSubsystem driveSubsystem = null;
-  public static pnusub pnuSubsystem = null;
+  public static ballIntakeSubsystem ballIntakeSub = null;
+  public static liftArmSubsystem liftArmSub = null;
+  public static liftWinchSubsystem liftWinchSub = null;
+  public static ballOutakeSubsystem ballOutakeSub = null;
+  public static ballBeltSubsystem ballBeltSub = null;
+  
   public static OI oi;
+ 
+  driveAuto auto= null;
  // public static CameraServer cs = null;
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -42,13 +61,23 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-   driveSubsystem = new DriveSubsystem();
-   pnuSubsystem = new pnusub();
+    driveSubsystem = new DriveSubsystem();
+    ballIntakeSub = new ballIntakeSubsystem();
+    liftArmSub = new liftArmSubsystem();
+    liftWinchSub = new liftWinchSubsystem();
+    ballOutakeSub = new ballOutakeSubsystem();
+    ballBeltSub = new ballBeltSubsystem();
     
+    
+   
+
+
+    
+    //limitSwitchfront = new DigitalInput(1);//RobotMap.limitswitchportfront);
     oi = new OI(); 
     CameraServer.getInstance().startAutomaticCapture();
     
-    //System.out.println("Started camera capture.");
+  
 
     //cs.getInstance().startAutomaticCapture();
     //chooser.setDefaultOption("Default Auto", new DriveManuallyCommand());
@@ -95,14 +124,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    autonomousCommand = chooser.getSelected();
+    auto = new driveAuto();
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
 
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {
@@ -115,8 +138,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+    //addSequential(new driveAuto());
+
+
+  
+      
+    
   }
+  // Drives forward at half speed until the robot has moved 5 feet, then stops:
+  
+
+
+
+
 
   @Override
   public void teleopInit() {

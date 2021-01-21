@@ -30,23 +30,23 @@ public class RobotMap {
   public static int rightMasterPort = 1;
   public static int rightSlavePort = 2;
 
-  public static int tiltmotorPort = 5;
-
-  public static int vacPumponPort = 1;
-
-  //soleniods
-  public static int frontLiftPort = 1;
-  public static int rearDropPort = 5;
-  public static int extendVacPort = 7;
-  public static int retractVacPort = 6;
-  public static int vacPumpoffPort = 0; //solenoid
-  public static int tiltLock = 4;
-
-
-  public static int pcmNum = 6;
-
+  public static int liftArmPort = 6;
+  public static int ballIntakePort = 5; 
+  public static int liftWinchPort = 8;
+  public static int ballOutakePort = 7;
+  public static int ballBeltPort = 9;
 
   //USB
   public static int joystickPort = 3;
   public static int xboxPort = 2;
+
+  //Sensors
+  public static int lowerBallPresentPort = 10;
+  public static int upperBallPresentPort = 11;
+
+  //public static int limitswitchportback= 7;
+  //public static int limitswitchportfront= 6;
+  
+  
+  
 }
